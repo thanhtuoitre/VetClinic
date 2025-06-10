@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="520" prefWidth="900" style="-fx-background-color: #f9f9f9; -fx-border-color: #d0d7de; -fx-border-radius: 12; -fx-background-radius: 12;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fita.vetclinic.controllers.customer.PetFormController">
+
+    <center>
+        <VBox alignment="TOP_LEFT" spacing="20" style="-fx-padding: 40;">
+            <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #334e68;" text="🐾 Quản lý Thông tin Thú Cưng" />
+
+            <GridPane hgap="20" vgap="12">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="30" />
+                    <ColumnConstraints percentWidth="70" />
+                </columnConstraints>
+
+                <Label text="Mã thú cưng:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <Label fx:id="lblPetId" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                <Label text="Tên:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <TextField fx:id="txtName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <Label text="Loài:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <TextField fx:id="txtSpecies" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                <Label text="Giống:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <TextField fx:id="txtBreed" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                <Label text="Giới tính:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                <ComboBox fx:id="cbGender" promptText="Chọn giới tính" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                <Label text="Ngày sinh:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                <DatePicker fx:id="dpBirthdate" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+                <Label text="Cân nặng (kg):" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                <TextField fx:id="txtWeight" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <rowConstraints>
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+            </rowConstraints>
+            </GridPane>
+
+            <HBox spacing="20" alignment="CENTER_RIGHT" style="-fx-padding: 30 0 0 0;">
+    <Button fx:id="btnCancel" text="❌ Huỷ"
+            prefWidth="100"
+            style="-fx-font-size: 14px; -fx-background-color: #e0e0e0; -fx-text-fill: #555; -fx-background-radius: 10;"
+            onMouseEntered="#hoverLightGray" onMouseExited="#resetStyleCancel"/>
+    
+    <Button fx:id="btnSave" text="💾 Lưu"
+            prefWidth="100"
+            style="-fx-font-size: 14px; -fx-background-color: #4a6fa5; -fx-text-fill: white; -fx-background-radius: 10;"
+            onMouseEntered="#hoverDarkBlue" onMouseExited="#resetStyleSave"/>
+
+    <Button fx:id="btnEdit" text="✏️ Sửa"
+            prefWidth="100"
+            style="-fx-font-size: 14px; -fx-background-color: #ffa726; -fx-text-fill: white; -fx-background-radius: 10;"
+            onMouseEntered="#hoverOrange" onMouseExited="#resetStyleEdit"/>
+
+    <Button fx:id="btnDelete" text="🗑️ Xoá"
+            prefWidth="100"
+            style="-fx-font-size: 14px; -fx-background-color: #e53935; -fx-text-fill: white; -fx-background-radius: 10;"
+            onMouseEntered="#hoverRed" onMouseExited="#resetStyleDelete"/>
+</HBox>
+
+        </VBox>
+    </center>
+</BorderPane>

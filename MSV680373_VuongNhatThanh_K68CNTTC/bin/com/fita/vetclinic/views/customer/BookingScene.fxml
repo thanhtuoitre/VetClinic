@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21.0.7"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.fita.vetclinic.controllers.customer.BookingController"
+            prefWidth="700" prefHeight="500"
+            style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #ccc; -fx-border-width: 1;">
+    
+    <center>
+        <VBox spacing="15" alignment="TOP_CENTER" style="-fx-padding: 30;">
+            <Label text="📅 Đặt lịch khám"
+                   style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #334e68;" />
+
+            <GridPane hgap="15" vgap="15">
+                <columnConstraints>
+                    <ColumnConstraints halignment="RIGHT" minWidth="150"/>
+                    <ColumnConstraints halignment="LEFT" minWidth="300"/>
+                </columnConstraints>
+
+                <!-- Pet -->
+                <Label text="Thú cưng:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="cbPet" promptText="Chọn thú cưng"
+                          GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="250"/>
+
+                <!-- Doctor -->
+                <Label text="Bác sĩ:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="cbDoctor" promptText="Chọn bác sĩ"
+                          GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="250"/>
+
+                <!-- Date -->
+                <Label text="Ngày khám:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <DatePicker fx:id="dpDate" GridPane.rowIndex="2" GridPane.columnIndex="1" prefWidth="250"/>
+
+                <!-- Time -->
+                <Label text="Giờ:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="cbTime" promptText="Chọn giờ"
+                          GridPane.rowIndex="3" GridPane.columnIndex="1" prefWidth="250"/>
+
+                <!-- Reason -->
+                <Label text="Lý do khám:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <TextArea fx:id="txtReason" promptText="Nhập lý do khám"
+                          GridPane.rowIndex="4" GridPane.columnIndex="1" prefWidth="250" prefHeight="80"/>
+            </GridPane>
+
+            <!-- Buttons -->
+            <HBox spacing="20" alignment="CENTER_RIGHT" style="-fx-padding: 20 0 0 0;">
+                <Button fx:id="btnCancel" text="Huỷ"
+                        style="-fx-background-color: #e0e0e0; -fx-text-fill: #555; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10;"/>
+                <Button fx:id="btnSubmit" text="Đặt lịch"
+                        style="-fx-background-color: #4a6fa5; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10;"/>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

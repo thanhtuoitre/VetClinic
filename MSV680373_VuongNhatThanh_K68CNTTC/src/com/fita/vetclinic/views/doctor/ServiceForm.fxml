@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21.0.7"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.fita.vetclinic.controllers.doctor.ServiceFormController"
+            prefWidth="700" prefHeight="500"
+            style="-fx-background-color: #f9f9f9; -fx-background-radius: 10;">
+
+    <top>
+        <Label text="📋 Quản lý dịch vụ"
+               style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-padding: 20; -fx-text-fill: #2a2a2a;"
+               BorderPane.alignment="CENTER"/>
+    </top>
+
+    <center>
+        <GridPane hgap="20" vgap="15" style="-fx-padding: 20 60 20 60;">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="30" />
+                <ColumnConstraints percentWidth="70" />
+            </columnConstraints>
+
+            <rowConstraints>
+                <RowConstraints minHeight="40" />
+                <RowConstraints minHeight="40" />
+                <RowConstraints minHeight="120" />
+            </rowConstraints>
+
+            <Label text="Tên dịch vụ:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtServiceName" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+            <Label text="Giá (VND):" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtServicePrice" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+            <Label text="Mô tả:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+            <TextArea fx:id="txtServiceDescription"
+                      prefRowCount="3"
+                      wrapText="true"
+                      GridPane.rowIndex="2"
+                      GridPane.columnIndex="1"/>
+        </GridPane>
+    </center>
+
+    <bottom>
+        <VBox spacing="8" style="-fx-padding: 0 40 20 40;">
+            <Label fx:id="lblEditInfo" text="Đang sửa dịch vụ: Không có" style="-fx-text-fill: #555;" />
+            <HBox spacing="15" alignment="CENTER_RIGHT">
+                <Button fx:id="btnAdd" text="Thêm"
+                        prefWidth="80"
+                        style="-fx-background-color: #d0f0c0; -fx-background-radius: 8;"/>
+                <Button fx:id="btnEdit" text="Sửa"
+                        prefWidth="80"
+                        style="-fx-background-color: #fce38a; -fx-background-radius: 8;"/>
+                <Button fx:id="btnDelete" text="Xoá"
+                        prefWidth="80"
+                        style="-fx-background-color: #ff7f7f; -fx-text-fill: white; -fx-background-radius: 8;"/>
+                <Button fx:id="btnSave" text="Lưu"
+                        prefWidth="80"
+                        style="-fx-background-color: #4a6fa5; -fx-text-fill: white; -fx-background-radius: 8;"/>
+            </HBox>
+        </VBox>
+    </bottom>
+</BorderPane>

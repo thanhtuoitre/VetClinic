@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="700" prefWidth="1000" style="-fx-background-color: linear-gradient(to bottom right, #f5f7fa, #c3cfe2);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fita.vetclinic.controllers.AppointmentController">
+
+	<!-- Nút quay về -->
+	<top>
+		<HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 10 20;">
+			<Button fx:id="btnBack" onAction="#handleBack" style="-fx-background-color: #e0e0e0; -fx-font-weight: bold; -fx-background-radius: 8;" text="← Quay về" />
+		</HBox>
+	</top>
+
+	<center>
+		<VBox alignment="TOP_CENTER" spacing="20" style="-fx-padding: 40 60;">
+
+			<!-- Tiêu đề -->
+			<Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #334e68;" text="📅 Lịch hẹn của tôi" />
+
+			<!-- Bộ lọc -->
+			<HBox alignment="CENTER_LEFT" spacing="20">
+				<DatePicker fx:id="datePicker" />
+				<ComboBox fx:id="doctorComboBox" prefWidth="160" />
+				<Button fx:id="btnSearch" style="-fx-background-color: #2b6777; -fx-text-fill: white; -fx-padding: 8 16; -fx-background-radius: 10;" text="🔍 Tìm kiếm" />
+
+				<Region HBox.hgrow="ALWAYS" />
+				<Button fx:id="btnReset" style="-fx-background-color: #4a6fa5; -fx-text-fill: white; -fx-padding: 8 16; -fx-background-radius: 10;" text="Làm mới" />
+			</HBox>
+
+			<!-- Danh sách lịch hẹn -->
+			<ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+				<VBox fx:id="appointmentList" prefHeight="541.0" prefWidth="865.0" spacing="15" style="-fx-padding: 10;">
+
+					<!-- Mẫu thẻ -->
+					<VBox spacing="10" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 5);">
+						<Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="🐾 Thú cưng: Miu Miu" />
+						<Label text="🧑‍⚕️ Bác sĩ: Nguyễn Thị A" />
+						<Label text="💉 Dịch vụ: Khám tổng quát" />
+						<Label text="🕒 Thời gian: 10:00 - 05/07/2025" />
+						<Label style="-fx-text-fill: green;" text="🟢 Trạng thái: Đã xác nhận" />
+					</VBox>
+
+				</VBox>
+			</ScrollPane>
+		</VBox>
+	</center>
+</BorderPane>

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="610" prefWidth="900"
+	style="-fx-background-color: linear-gradient(to bottom right, #a1c4fd, #c2e9fb);"
+	xmlns="http://javafx.com/javafx/23.0.1"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="com.fita.vetclinic.controllers.RegisterController">
+
+	<!-- Thanh tiêu đề -->
+	<top>
+		<HBox alignment="CENTER_LEFT" prefHeight="50"
+			style="-fx-background-color: transparent; -fx-padding: 0 20;">
+			<Pane HBox.hgrow="ALWAYS" />
+		</HBox>
+	</top>
+
+	<!-- Nội dung chính -->
+	<center>
+		<HBox alignment="CENTER" maxHeight="500" maxWidth="850"
+			spacing="30"
+			style="-fx-background-color: #ffffffcc; -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(50,50,50,0.1), 20,0,0,10);">
+
+			<!-- Bên trái: logo và tiêu đề -->
+			<VBox alignment="CENTER" prefWidth="350" spacing="25"
+				style="-fx-padding: 40;">
+				<ImageView fitHeight="160" fitWidth="160"
+					pickOnBounds="true" preserveRatio="true">
+					<!-- Đảm bảo chỉ định đúng đường dẫn ảnh -->
+					<Image
+						url="@../../../../../resources/images/logos/logopetshop.png" />
+				</ImageView>
+				<Label
+					style="-fx-font-size: 28px; -fx-font-weight: 700; -fx-text-fill: #4a6fa5;"
+					text="VetClinic" textAlignment="CENTER" wrapText="true" />
+				<Label style="-fx-font-size: 16px; -fx-text-fill: #7a8ba6;"
+					text="Ứng dụng quản lý phòng khám hiệu quả" textAlignment="CENTER"
+					wrapText="true" />
+			</VBox>
+
+			<!-- Bên phải: form đăng ký -->
+			<VBox alignment="CENTER" prefWidth="450" spacing="10"
+				style="-fx-padding: 40;">
+				<Label alignment="CENTER"
+					style="-fx-font-size: 34px; -fx-font-weight: 700; -fx-text-fill: #334e68;"
+					text="Đăng ký tài khoản" />
+
+				<!-- Họ và tên -->
+				<HBox alignment="CENTER_LEFT" maxWidth="400" spacing="10"
+					style="-fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #a1c4fd; -fx-focus-color: #6b8ce3; -fx-padding: 5 10; -fx-background-color: #f0f5ff;">
+					<ImageView fitHeight="24" fitWidth="24" opacity="0.5"
+						pickOnBounds="true" preserveRatio="true">
+						<Image
+							url="@../../../../../resources/images/icons/nametag.png" />
+					</ImageView>
+					<TextField fx:id="tfFullname" promptText="Họ và tên"
+						style="-fx-background-color: transparent; -fx-border-width: 0; -fx-padding: 0;"
+						HBox.hgrow="ALWAYS" />
+				</HBox>
+
+				<!-- Email -->
+				<HBox alignment="CENTER_LEFT" maxWidth="400" spacing="10"
+					style="-fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #a1c4fd; -fx-focus-color: #6b8ce3; -fx-padding: 5 10; -fx-background-color: #f0f5ff;">
+					<ImageView fitHeight="24" fitWidth="24" opacity="0.5"
+						pickOnBounds="true" preserveRatio="true">
+						<Image
+							url="@../../../../../resources/images/icons/email.png" />
+					</ImageView>
+					<TextField fx:id="tfEmail" promptText="Email"
+						style="-fx-background-color: transparent; -fx-border-width: 0; -fx-padding: 0;"
+						HBox.hgrow="ALWAYS" />
+				</HBox>
+
+				<!-- Số điện thoại -->
+				<HBox alignment="CENTER_LEFT" maxWidth="400" spacing="10"
+					style="-fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #a1c4fd; -fx-focus-color: #6b8ce3; -fx-padding: 5 10; -fx-background-color: #f0f5ff;">
+					<ImageView fitHeight="24" fitWidth="24" opacity="0.5"
+						pickOnBounds="true" preserveRatio="true">
+						<Image
+							url="@../../../../../resources/images/icons/phone.png" />
+					</ImageView>
+					<TextField fx:id="tfPhone" promptText="Số điện thoại"
+						style="-fx-background-color: transparent; -fx-border-width: 0; -fx-padding: 0;"
+						HBox.hgrow="ALWAYS" />
+				</HBox>
+
+				<!-- Ngày sinh -->
+				<HBox alignment="CENTER_LEFT" maxWidth="400" spacing="10"
+					style="-fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #a1c4fd; -fx-focus-color: #6b8ce3; -fx-padding: 5 10; -fx-background-color: #f0f5ff;">
+					<ImageView fitHeight="24" fitWidth="24" opacity="0.5"
+						pickOnBounds="true" preserveRatio="true">
+						<Image url="@../../../../../resources/images/icons/date.png" />
+					</ImageView>
+					<DatePicker fx:id="dpBirthday" promptText="Ngày sinh"
+						style="-fx-background-color: transparent; -fx-border-width: 0; -fx-padding: 0;"
+						HBox.hgrow="ALWAYS" />
+				</HBox>
+
+				<!-- Giới tính -->
+				<HBox alignment="CENTER_LEFT" maxWidth="400" spacing="10"
+					style="-fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #a1c4fd; -fx-focus-color: #6b8ce3; -fx-padding: 5 10; -fx-background-color: #f0f5ff;">
+					<Label style="-fx-text-fill: #334e68;" text="Giới tính:" />
+					<RadioButton fx:id="rbMale"
+						style="-fx-text-fill: #334e68;" text="Nam">
+						<toggleGroup>
+							<ToggleGroup fx:id="genderGroup" />
+						</toggleGroup>
+					</RadioButton>
+					<RadioButton fx:id="rbFemale"
+						style="-fx-text-fill: #334e68;" text="Nữ"
+						toggleGroup="$genderGroup" />
+				</HBox>
+
+				<!-- Mật khẩu -->
+				<VBox maxWidth="400" spacing="5">
+					<HBox alignment="CENTER_LEFT" spacing="10"
+						style="-fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #a1c4fd; -fx-focus-color: #6b8ce3; -fx-padding: 5 10; -fx-background-color: #f0f5ff;">
+						<ImageView fitHeight="24" fitWidth="24" opacity="0.5"
+							pickOnBounds="true" preserveRatio="true">
+							<Image
+								url="@../../../../../resources/images/icons/padlock.png" />
+						</ImageView>
+
+						<StackPane HBox.hgrow="ALWAYS">
+							<PasswordField fx:id="pfPassword"
+								promptText="Password"
+								style="-fx-background-color: transparent; -fx-border-width: 0; -fx-padding: 0;" />
+							<TextField fx:id="tfPassword" promptText="Password"
+								style="-fx-background-color: transparent; -fx-border-width: 0; -fx-padding: 0;"
+								visible="false" />
+						</StackPane>
+					</HBox>
+				</VBox>
+
+				<!-- Xác nhận mật khẩu -->
+				<HBox alignment="CENTER_LEFT" maxWidth="400" spacing="10"
+					style="-fx-background-radius: 12; -fx-border-radius: 12; -fx-border-color: #a1c4fd; -fx-focus-color: #6b8ce3; -fx-padding: 5 10; -fx-background-color: #f0f5ff;">
+					<ImageView fitHeight="24" fitWidth="24" opacity="0.5"
+						pickOnBounds="true" preserveRatio="true">
+						<Image
+							url="@../../../../../resources/images/icons/padlock.png" />
+					</ImageView>
+					<StackPane HBox.hgrow="ALWAYS">
+						<PasswordField fx:id="pfConfirmPassword"
+							promptText="Xác nhận mật khẩu"
+							style="-fx-background-color: transparent; -fx-border-width: 0; -fx-padding: 0;" />
+						<TextField fx:id="tfConfirmPassword"
+							promptText="Xác nhận mật khẩu"
+							style="-fx-background-color: transparent; -fx-border-width: 0; -fx-padding: 0;"
+							visible="false" />
+					</StackPane>
+				</HBox>
+
+				<!-- Hiển thị mật khẩu -->
+				<CheckBox fx:id="cbShowPassword" alignment="TOP_LEFT"
+					graphicTextGap="100.0" onAction="#handleShowPassword"
+					prefHeight="18.0" prefWidth="166.0" style="-fx-text-fill: #334e68;"
+					text="Hiển thị mật khẩu" textOverrun="CLIP" VBox.vgrow="SOMETIMES">
+					<VBox.margin>
+						<Insets right="200.0" />
+					</VBox.margin>
+				</CheckBox>
+
+				<!-- Nút đăng ký -->
+				<Button fx:id="btnRegister" maxWidth="400"
+					onAction="#handleRegister"
+					style="-fx-background-color: #6b8ce3; -fx-text-fill: white; -fx-background-radius: 12; -fx-font-weight: 700; -fx-padding: 14 0;"
+					text="Đăng ký">
+					<VBox.margin>
+						<Insets top="15" />
+					</VBox.margin>
+				</Button>
+
+				<!-- Nút quay lại -->
+				<Button fx:id="btnCancel" maxWidth="400"
+					onAction="#handleCancel"
+					style="-fx-background-color: #dbe6fd; -fx-text-fill: #334e68; -fx-background-radius: 12; -fx-font-weight: 700; -fx-padding: 14 0;"
+					text="Quay lại">
+					<VBox.margin>
+						<Insets top="8" />
+					</VBox.margin>
+				</Button>
+
+			</VBox>
+		</HBox>
+	</center>
+
+	<!-- Footer -->
+	<bottom>
+		<HBox alignment="CENTER" prefHeight="30"
+			style="-fx-background-color: transparent;">
+			<Label style="-fx-text-fill: #334e68; -fx-font-size: 14px;"
+				text="Thiết kế bởi Nhật Thành Software" />
+		</HBox>
+	</bottom>
+</BorderPane>

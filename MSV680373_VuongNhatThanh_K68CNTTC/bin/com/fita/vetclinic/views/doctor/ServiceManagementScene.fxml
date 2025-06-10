@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="600" prefWidth="960" style="-fx-background-color: #f5f8fa;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fita.vetclinic.controllers.admin.ServiceManagementController">
+
+    <center>
+        <VBox alignment="CENTER" spacing="20" style="-fx-padding: 30;">
+            <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #334e68;" text="🛠️ Quản lý Dịch vụ Y tế" />
+
+            <TableView fx:id="tblServices" prefHeight="400">
+                <columns>
+                    <TableColumn fx:id="colId" prefWidth="60" text="ID" />
+                    <TableColumn fx:id="colName" prefWidth="200" text="Tên dịch vụ" />
+                    <TableColumn fx:id="colPrice" prefWidth="244.0" text="Giá (VNĐ)" />
+                    <TableColumn fx:id="colDescription" prefWidth="255.99996948242188" text="Mô tả" />
+                </columns>
+            </TableView>
+
+            <HBox alignment="CENTER_RIGHT" spacing="15">
+                <Button fx:id="btnAdd" prefWidth="100" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 8;" text="➕ Thêm" />
+                <Button fx:id="btnEdit" prefWidth="100" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-background-radius: 8;" text="✏️ Sửa" />
+                <Button fx:id="btnDelete" prefWidth="100" style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-background-radius: 8;" text="🗑️ Xoá" />
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

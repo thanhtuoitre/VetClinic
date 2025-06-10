@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21.0.7"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.fita.vetclinic.controllers.customer.MedicalHistoryController"
+            prefWidth="960" prefHeight="600"
+            style="-fx-background-color: transparent;">
+
+    <center>
+        <StackPane>
+            <!-- Nền nhẹ phía sau -->
+            <Region style="-fx-background-color: #f5f8fa; -fx-background-radius: 16;" 
+                    VBox.vgrow="ALWAYS" />
+
+            <!-- Nội dung chính -->
+            <VBox spacing="15" alignment="CENTER" style="-fx-padding: 30;">
+                <Label text="📋 Lịch sử khám bệnh"
+                       style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #334e68;" />
+
+                <TableView fx:id="tblMedicalRecords" prefHeight="250" maxHeight="250">
+                    <columns>
+                        <TableColumn fx:id="colRecordDate" text="Ngày khám" prefWidth="120"/>
+                        <TableColumn fx:id="colPetName" text="Thú cưng" prefWidth="120"/>
+                        <TableColumn fx:id="colDoctorName" text="Bác sĩ" prefWidth="150"/>
+                        <TableColumn fx:id="colDiagnosis" text="Chẩn đoán" prefWidth="180"/>
+                        <TableColumn fx:id="colTreatment" text="Điều trị" prefWidth="180"/>
+                        <TableColumn fx:id="colNotes" text="Ghi chú" prefWidth="120"/>
+                    </columns>
+                </TableView>
+
+                <Label text="💉 Vaccine đã tiêm"
+                       style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #334e68; -fx-padding: 10 0 0 0;" />
+
+                <TableView fx:id="tblVaccinations" prefHeight="200" maxHeight="200">
+                    <columns>
+                        <TableColumn fx:id="colVaccineName" text="Tên vaccine" prefWidth="180"/>
+                        <TableColumn fx:id="colVaccinationDate" text="Ngày tiêm" prefWidth="120"/>
+                        <TableColumn fx:id="colBatchNumber" text="Số lô" prefWidth="100"/>
+                        <TableColumn fx:id="colNextDueDate" text="Ngày hẹn tiêm" prefWidth="120"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </StackPane>
+    </center>
+</BorderPane>
