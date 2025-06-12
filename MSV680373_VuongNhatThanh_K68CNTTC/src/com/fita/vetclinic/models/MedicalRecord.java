@@ -6,9 +6,9 @@ public class MedicalRecord {
 
 	private int recordId;
 
-	private int petId; // FK to tbl_pets
+	private int petId; // FK tbl_pets
 
-	private int doctorId; // FK to tbl_doctors
+	private int doctorId; // FK tbl_doctors
 
 	private Date recordDate;
 

@@ -27,7 +27,6 @@ public class DoctorDAO {
 			pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 			pstmt.setInt(1, doctor.getUserId());
-			// ĐÃ SỬA: Sử dụng setBoolean() để ghi giá trị boolean trực tiếp vào Access
 			pstmt.setBoolean(2, doctor.getIs_active());
 			pstmt.setString(3, doctor.getSpecialization());
 
@@ -39,7 +38,7 @@ public class DoctorDAO {
 
 			generatedKeys = pstmt.getGeneratedKeys();
 			if (generatedKeys.next()) {
-				doctor.setDoctorId(generatedKeys.getInt(1)); // Gán lại ID vào đối tượng Doctor
+				doctor.setDoctorId(generatedKeys.getInt(1));
 				System.out.println("Thêm bác sĩ thành công. DoctorID mới: " + doctor.getDoctorId());
 			} else {
 				System.out.println("Thêm bác sĩ thành công nhưng không lấy được DoctorID tự động.");
@@ -134,53 +133,51 @@ public class DoctorDAO {
 	}
 
 	public ObservableList<Doctor> getAllDoctors() throws SQLException {
-	    ObservableList<Doctor> doctorList = FXCollections.observableArrayList();
-	    String sql = "SELECT doctor_id, user_id, is_active, specialization FROM tbl_doctors";
+		ObservableList<Doctor> doctorList = FXCollections.observableArrayList();
+		String sql = "SELECT doctor_id, user_id, is_active, specialization FROM tbl_doctors";
 
-	    Connection conn = null;
-	    Statement stmt = null;
-	    ResultSet rs = null;
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
 
-	    try {
-	        conn = DBConnection.getConnection();
-	        stmt = conn.createStatement();
-	        rs = stmt.executeQuery(sql);
+		try {
+			conn = DBConnection.getConnection();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
 
-	        while (rs.next()) {
-	            doctorList.add(new Doctor(
-	                    AccessDataConverterUtil.getInt(rs, "doctor_id"),
-	                    AccessDataConverterUtil.getInt(rs, "user_id"),
-	                    AccessDataConverterUtil.getBoolean(rs, "is_active"),
-	                    AccessDataConverterUtil.getString(rs, "specialization")
-	            ));
-	        }
-	    } finally {
-	        DBConnection.closeResultSet(rs);
-	        DBConnection.closeStatement(stmt);
-	        DBConnection.closeConnection(conn);
-	    }
-	    return doctorList;
+			while (rs.next()) {
+				doctorList.add(new Doctor(AccessDataConverterUtil.getInt(rs, "doctor_id"),
+						AccessDataConverterUtil.getInt(rs, "user_id"),
+						AccessDataConverterUtil.getBoolean(rs, "is_active"),
+						AccessDataConverterUtil.getString(rs, "specialization")));
+			}
+		} finally {
+			DBConnection.closeResultSet(rs);
+			DBConnection.closeStatement(stmt);
+			DBConnection.closeConnection(conn);
+		}
+		return doctorList;
 	}
 
 	public String getDoctorName(int doctorId) {
-	    String sql = """
-	        SELECT u.fullname
-	        FROM tbl_doctors d
-	        JOIN tbl_users u ON d.user_id = u.user_id
-	        WHERE d.doctor_id = ?
-	        """;
+		String sql = """
+				SELECT u.fullname
+				FROM tbl_doctors d
+				JOIN tbl_users u ON d.user_id = u.user_id
+				WHERE d.doctor_id = ?
+				""";
 
-	    try (Connection conn = DBConnection.getConnection();
-	         PreparedStatement stmt = conn.prepareStatement(sql)) {
+		try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-	        stmt.setInt(1, doctorId);
-	        try (ResultSet rs = stmt.executeQuery()) {
-	            if (rs.next()) return rs.getString("fullname");
-	        }
-	    } catch (Exception e) {
-	        System.err.println("Lỗi lấy tên bác sĩ: " + e.getMessage());
-	    }
-	    return "Không xác định";
+			stmt.setInt(1, doctorId);
+			try (ResultSet rs = stmt.executeQuery()) {
+				if (rs.next())
+					return rs.getString("fullname");
+			}
+		} catch (Exception e) {
+			System.err.println("Lỗi lấy tên bác sĩ: " + e.getMessage());
+		}
+		return "Không xác định";
 	}
 
 }

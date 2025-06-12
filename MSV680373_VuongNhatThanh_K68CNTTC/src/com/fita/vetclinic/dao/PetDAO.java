@@ -1,10 +1,12 @@
 package com.fita.vetclinic.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +28,7 @@ public class PetDAO {
             pstmt.setString(4, pet.getGender());
             pstmt.setDate(5, DateTimeUtil.convertUtilDateToSqlDate(pet.getBirthdate()));
             pstmt.setDouble(6, pet.getWeight());
-            pstmt.setInt(7, pet.getuserId()); // user_id
+            pstmt.setInt(7, pet.getuserId()); 
             pstmt.setString(8, pet.getImagePath());
 
             int affectedRows = pstmt.executeUpdate();
@@ -154,20 +156,31 @@ public class PetDAO {
         String sql = """
             SELECT COUNT(*) FROM tbl_pets p
             INNER JOIN tbl_appointments a ON p.pet_id = a.pet_id
-            WHERE MONTH(a.appointment_date) = MONTH(CURRENT_DATE)
-              AND YEAR(a.appointment_date) = YEAR(CURRENT_DATE)
+            WHERE a.appointment_date BETWEEN ? AND ?
         """;
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
+        LocalDate now = LocalDate.now();
+        LocalDate firstDay = now.withDayOfMonth(1);
+        LocalDate lastDay = now.withDayOfMonth(now.lengthOfMonth());
 
-            if (rs.next()) return rs.getInt(1);
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setDate(1, Date.valueOf(firstDay));
+            stmt.setDate(2, Date.valueOf(lastDay));
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Lỗi đếm thú cưng có lịch hẹn trong tháng: " + e.getMessage());
         }
+
         return 0;
     }
+
 
 	public boolean isPetOwnedByUser(int petId, int userId) {
         try (Connection conn = DBConnection.getConnection();

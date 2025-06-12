@@ -21,10 +21,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class MedicalHistoryController {
@@ -37,19 +40,14 @@ public class MedicalHistoryController {
 
 	@FXML
 	private TableColumn<MedicalRecordDisplay, String> colRecordDate;
-
 	@FXML
 	private TableColumn<MedicalRecordDisplay, String> colPetName;
-
 	@FXML
 	private TableColumn<MedicalRecordDisplay, String> colDoctorName;
-
 	@FXML
 	private TableColumn<MedicalRecordDisplay, String> colDiagnosis;
-
 	@FXML
 	private TableColumn<MedicalRecordDisplay, String> colTreatment;
-
 	@FXML
 	private TableColumn<MedicalRecordDisplay, String> colNotes;
 
@@ -58,15 +56,15 @@ public class MedicalHistoryController {
 
 	@FXML
 	private TableColumn<VaccinationDisplay, String> colVaccineName;
-
 	@FXML
 	private TableColumn<VaccinationDisplay, String> colVaccinationDate;
-
 	@FXML
 	private TableColumn<VaccinationDisplay, String> colBatchNumber;
-
 	@FXML
 	private TableColumn<VaccinationDisplay, String> colNextDueDate;
+
+	@FXML
+	private Button btnBack;
 
 	private MedicalRecordDAO medicalRecordDAO;
 	private PetDAO petDAO;
@@ -74,7 +72,9 @@ public class MedicalHistoryController {
 	private VaccineDAO vaccineDAO;
 	private MedicalRecordVaccineDAO medicalRecordVaccineDAO;
 
-	// Display class for MedicalRecord table
+	@FXML
+	private BorderPane rootPane;
+
 	public class MedicalRecordDisplay {
 		private final SimpleStringProperty recordDate;
 		private final SimpleStringProperty petName;
@@ -150,13 +150,15 @@ public class MedicalHistoryController {
 
 	@FXML
 	public void initialize() {
+		rootPane.getStylesheets()
+				.add(getClass().getResource("/com/fita/vetclinic/views/MedicalHistory.css").toExternalForm());
 		medicalRecordDAO = new MedicalRecordDAO();
 		petDAO = new PetDAO();
 		doctorDAO = new DoctorDAO();
 		vaccineDAO = new VaccineDAO();
 		medicalRecordVaccineDAO = new MedicalRecordVaccineDAO();
 
-		// Set up Medical Records table columns
+		// Set up Medical Records table
 		colRecordDate.setCellValueFactory(new PropertyValueFactory<>("recordDate"));
 		colPetName.setCellValueFactory(new PropertyValueFactory<>("petName"));
 		colDoctorName.setCellValueFactory(new PropertyValueFactory<>("doctorName"));
@@ -164,15 +166,44 @@ public class MedicalHistoryController {
 		colTreatment.setCellValueFactory(new PropertyValueFactory<>("treatment"));
 		colNotes.setCellValueFactory(new PropertyValueFactory<>("notes"));
 
-		// Set up Vaccinations table columns
+		// Apply black text style
+		colRecordDate.setCellFactory(col -> getStyledCell());
+		colPetName.setCellFactory(col -> getStyledCell());
+		colDoctorName.setCellFactory(col -> getStyledCell());
+		colDiagnosis.setCellFactory(col -> getStyledCell());
+		colTreatment.setCellFactory(col -> getStyledCell());
+		colNotes.setCellFactory(col -> getStyledCell());
+
+		// Set up Vaccinations table
 		colVaccineName.setCellValueFactory(new PropertyValueFactory<>("vaccineName"));
 		colVaccinationDate.setCellValueFactory(new PropertyValueFactory<>("vaccinationDate"));
 		colBatchNumber.setCellValueFactory(new PropertyValueFactory<>("batchNumber"));
 		colNextDueDate.setCellValueFactory(new PropertyValueFactory<>("nextDueDate"));
 
+		// Apply black text style
+		colVaccineName.setCellFactory(col -> getStyledCell());
+		colVaccinationDate.setCellFactory(col -> getStyledCell());
+		colBatchNumber.setCellFactory(col -> getStyledCell());
+		colNextDueDate.setCellFactory(col -> getStyledCell());
+
 		// Load data
 		loadMedicalRecords();
 		loadVaccinations();
+	}
+
+	private <T> TableCell<T, String> getStyledCell() {
+		return new TableCell<T, String>() {
+			@Override
+			protected void updateItem(String item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+				} else {
+					setText(item);
+					setStyle("-fx-text-fill: #1f1f1f; -fx-font-size: 13px;");
+				}
+			}
+		};
 	}
 
 	private void loadMedicalRecords() {
@@ -211,17 +242,17 @@ public class MedicalHistoryController {
 			System.err.println("Lỗi khi tải lịch sử vaccine: " + e.getMessage());
 		}
 	}
-	
+
 	@FXML
 	private void handleBackAction() {
-	    try {
-	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/fita/vetclinic/views/DashBoardScene.fxml"));
-	        Parent root = loader.load();
-	        Stage stage = (Stage) lblTitle.getScene().getWindow();
-	        stage.setScene(new Scene(root));
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	        AlertUtil.showErrorAlert("Lỗi", "Không thể quay về màn hình chính.");
-	    }
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/fita/vetclinic/views/DashBoardScene.fxml"));
+			Parent root = loader.load();
+			Stage stage = (Stage) lblTitle.getScene().getWindow();
+			stage.setScene(new Scene(root));
+		} catch (IOException e) {
+			e.printStackTrace();
+			AlertUtil.showErrorAlert("Lỗi", "Không thể quay về màn hình chính.");
+		}
 	}
 }

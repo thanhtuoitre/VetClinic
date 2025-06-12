@@ -11,242 +11,222 @@ import com.fita.vetclinic.utils.DateTimeUtil;
 
 public class UserDAO {
 
-    // Thêm người dùng vào cơ sở dữ liệu
-    public void addUser(User user) throws SQLException {
-        String sql = "INSERT INTO tbl_users (fullname, role, gender, birthday, phone, email, imagepath, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+	// Thêm người dùng vào cơ sở dữ liệu
+	public void addUser(User user) throws SQLException {
+		String sql = "INSERT INTO tbl_users (fullname, role, gender, birthday, phone, email, imagepath, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet generatedKeys = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet generatedKeys = null;
 
-        try {
-            conn = DBConnection.getConnection();
-            pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            pstmt.setString(1, user.getFullname());
-            pstmt.setString(2, user.getRole());  // Lưu role
-            pstmt.setString(3, user.getGender());
-            pstmt.setDate(4, DateTimeUtil.convertUtilDateToSqlDate(user.getBirthday()));
-            pstmt.setString(5, user.getPhone());
-            pstmt.setString(6, user.getEmail());
-            pstmt.setString(7, user.getImagePath());
-            pstmt.setString(8, user.getPassword());
+		try {
+			conn = DBConnection.getConnection();
+			pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			pstmt.setString(1, user.getFullname());
+			pstmt.setString(2, user.getRole());
+			pstmt.setString(3, user.getGender());
+			pstmt.setDate(4, DateTimeUtil.convertUtilDateToSqlDate(user.getBirthday()));
+			pstmt.setString(5, user.getPhone());
+			pstmt.setString(6, user.getEmail());
+			pstmt.setString(7, user.getImagePath());
+			pstmt.setString(8, user.getPassword());
 
-            int affectedRows = pstmt.executeUpdate();
+			int affectedRows = pstmt.executeUpdate();
 
-            if (affectedRows == 0) {
-                throw new SQLException("Thêm người dùng thất bại, không có hàng nào được ảnh hưởng.");
-            }
+			if (affectedRows == 0) {
+				throw new SQLException("Thêm người dùng thất bại, không có hàng nào được ảnh hưởng.");
+			}
 
-            generatedKeys = pstmt.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                user.setUserId(generatedKeys.getInt(1));
-                System.out.println("Thêm người dùng thành công. UserID mới: " + user.getUserId());
-            } else {
-                System.out.println("Thêm người dùng thành công nhưng không lấy được UserID tự động.");
-            }
+			generatedKeys = pstmt.getGeneratedKeys();
+			if (generatedKeys.next()) {
+				user.setUserId(generatedKeys.getInt(1));
+				System.out.println("Thêm người dùng thành công. UserID mới: " + user.getUserId());
+			} else {
+				System.out.println("Thêm người dùng thành công nhưng không lấy được UserID tự động.");
+			}
 
-        } finally {
-            DBConnection.closeResultSet(generatedKeys);
-            DBConnection.closePreparedStatement(pstmt);
-            DBConnection.closeConnection(conn);
-        }
-    }
+		} finally {
+			DBConnection.closeResultSet(generatedKeys);
+			DBConnection.closePreparedStatement(pstmt);
+			DBConnection.closeConnection(conn);
+		}
+	}
 
-    // Lấy người dùng theo ID
-    public User getUserById(int userId) throws SQLException {
-        User user = null;
-        String sql = "SELECT user_id, fullname, role, gender, birthday, phone, email, imagepath, password FROM tbl_users WHERE user_id = ?";
+	// Lấy người dùng theo ID
+	public User getUserById(int userId) throws SQLException {
+		User user = null;
+		String sql = "SELECT user_id, fullname, role, gender, birthday, phone, email, imagepath, password FROM tbl_users WHERE user_id = ?";
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+		try (Connection conn = DBConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, userId);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    user = new User(
-                            AccessDataConverterUtil.getString(rs, "fullname"),
-                            AccessDataConverterUtil.getString(rs, "gender"),
-                            AccessDataConverterUtil.getDate(rs, "birthday"),
-                            AccessDataConverterUtil.getString(rs, "phone"),
-                            AccessDataConverterUtil.getString(rs, "email"),
-                            AccessDataConverterUtil.getString(rs, "imagepath"),
-                            AccessDataConverterUtil.getString(rs, "password"),
-                            AccessDataConverterUtil.getString(rs, "role")
-                    );
-                    user.setUserId(rs.getInt("user_id")); 
-                }
-            }
-        }
-        return user;
-    }
+			pstmt.setInt(1, userId);
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					user = new User(AccessDataConverterUtil.getString(rs, "fullname"),
+							AccessDataConverterUtil.getString(rs, "gender"),
+							AccessDataConverterUtil.getDate(rs, "birthday"),
+							AccessDataConverterUtil.getString(rs, "phone"),
+							AccessDataConverterUtil.getString(rs, "email"),
+							AccessDataConverterUtil.getString(rs, "imagepath"),
+							AccessDataConverterUtil.getString(rs, "password"),
+							AccessDataConverterUtil.getString(rs, "role"));
+					user.setUserId(rs.getInt("user_id"));
+				}
+			}
+		}
+		return user;
+	}
 
+	// Lấy người dùng theo email
+	public User getUserByEmail(String email) throws SQLException {
+		User user = null;
+		String sql = "SELECT user_id, fullname, role, gender, birthday, phone, email, imagepath, password FROM tbl_users WHERE email = ?";
 
-    // Lấy người dùng theo email
-    public User getUserByEmail(String email) throws SQLException {
-        User user = null;
-        String sql = "SELECT user_id, fullname, role, gender, birthday, phone, email, imagepath, password FROM tbl_users WHERE email = ?";
+		try (Connection conn = DBConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, email);
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					user = new User(AccessDataConverterUtil.getString(rs, "fullname"),
+							AccessDataConverterUtil.getString(rs, "gender"),
+							AccessDataConverterUtil.getDate(rs, "birthday"),
+							AccessDataConverterUtil.getString(rs, "phone"),
+							AccessDataConverterUtil.getString(rs, "email"),
+							AccessDataConverterUtil.getString(rs, "imagepath"),
+							AccessDataConverterUtil.getString(rs, "password"),
+							AccessDataConverterUtil.getString(rs, "role"));
+					user.setUserId(rs.getInt("user_id"));
+				}
+			}
+		}
+		return user;
+	}
 
-            pstmt.setString(1, email);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    user = new User(
-                            AccessDataConverterUtil.getString(rs, "fullname"),
-                            AccessDataConverterUtil.getString(rs, "gender"),
-                            AccessDataConverterUtil.getDate(rs, "birthday"),
-                            AccessDataConverterUtil.getString(rs, "phone"),
-                            AccessDataConverterUtil.getString(rs, "email"),
-                            AccessDataConverterUtil.getString(rs, "imagepath"),
-                            AccessDataConverterUtil.getString(rs, "password"),
-                            AccessDataConverterUtil.getString(rs, "role")
-                    );
-                    user.setUserId(rs.getInt("user_id")); 
-                }
-            }
-        }
-        return user;
-    }
+	// Cập nhật thông tin người dùng
+	public void updateUser(User user) throws SQLException {
+		String sql = "UPDATE tbl_users SET fullname = ?, role = ?, gender = ?, birthday = ?, phone = ?, email = ?, imagepath = ?, password = ? WHERE user_id = ?";
 
+		Connection conn = null;
+		PreparedStatement pstmt = null;
 
-    // Cập nhật thông tin người dùng
-    public void updateUser(User user) throws SQLException {
-        String sql = "UPDATE tbl_users SET fullname = ?, role = ?, gender = ?, birthday = ?, phone = ?, email = ?, imagepath = ?, password = ? WHERE user_id = ?";
+		try {
+			conn = DBConnection.getConnection();
+			pstmt = conn.prepareStatement(sql);
 
-        Connection conn = null;
-        PreparedStatement pstmt = null;
+			pstmt.setString(1, user.getFullname());
+			pstmt.setString(2, user.getRole());
+			pstmt.setString(3, user.getGender());
+			pstmt.setDate(4, DateTimeUtil.convertUtilDateToSqlDate(user.getBirthday()));
+			pstmt.setString(5, user.getPhone());
+			pstmt.setString(6, user.getEmail());
+			pstmt.setString(7, user.getImagePath());
+			pstmt.setString(8, user.getPassword());
+			pstmt.setInt(9, user.getUserId());
 
-        try {
-            conn = DBConnection.getConnection();
-            pstmt = conn.prepareStatement(sql);
+			int affectedRows = pstmt.executeUpdate();
+			if (affectedRows == 0) {
+				System.out.println(
+						"Cập nhật người dùng ID " + user.getUserId() + " không thành công (có thể không tìm thấy ID).");
+			} else {
+				System.out.println("Cập nhật người dùng ID " + user.getUserId() + " thành công.");
+			}
 
-            pstmt.setString(1, user.getFullname());
-            pstmt.setString(2, user.getRole());  // Cập nhật role
-            pstmt.setString(3, user.getGender());
-            pstmt.setDate(4, DateTimeUtil.convertUtilDateToSqlDate(user.getBirthday()));
-            pstmt.setString(5, user.getPhone());
-            pstmt.setString(6, user.getEmail());
-            pstmt.setString(7, user.getImagePath());
-            pstmt.setString(8, user.getPassword());
-            pstmt.setInt(9, user.getUserId());
+		} finally {
+			DBConnection.closePreparedStatement(pstmt);
+			DBConnection.closeConnection(conn);
+		}
+	}
 
-            int affectedRows = pstmt.executeUpdate();
-            if (affectedRows == 0) {
-                System.out.println("Cập nhật người dùng ID " + user.getUserId() + " không thành công (có thể không tìm thấy ID).");
-            } else {
-                System.out.println("Cập nhật người dùng ID " + user.getUserId() + " thành công.");
-            }
+	// Xóa người dùng theo ID
+	public void deleteUser(int userId) throws SQLException {
+		String sql = "DELETE FROM tbl_users WHERE user_id = ?";
 
-        } finally {
-            DBConnection.closePreparedStatement(pstmt);
-            DBConnection.closeConnection(conn);
-        }
-    }
+		Connection conn = null;
+		PreparedStatement pstmt = null;
 
-    // Xóa người dùng theo ID
-    public void deleteUser(int userId) throws SQLException {
-        String sql = "DELETE FROM tbl_users WHERE user_id = ?";
+		try {
+			conn = DBConnection.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userId);
 
-        Connection conn = null;
-        PreparedStatement pstmt = null;
+			int affectedRows = pstmt.executeUpdate();
+			if (affectedRows == 0) {
+				System.out.println("Xóa người dùng ID " + userId + " không thành công (có thể không tìm thấy ID).");
+			} else {
+				System.out.println("Xóa người dùng ID " + userId + " thành công.");
+			}
+		} finally {
+			DBConnection.closePreparedStatement(pstmt);
+			DBConnection.closeConnection(conn);
+		}
+	}
 
-        try {
-            conn = DBConnection.getConnection();
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, userId);
+	public List<User> getAllUsers() throws SQLException {
+		List<User> userList = new ArrayList<>();
+		String sql = "SELECT user_id, fullname, role, gender, birthday, phone, email, imagepath, password FROM tbl_users";
 
-            int affectedRows = pstmt.executeUpdate();
-            if (affectedRows == 0) {
-                System.out.println("Xóa người dùng ID " + userId + " không thành công (có thể không tìm thấy ID).");
-            } else {
-                System.out.println("Xóa người dùng ID " + userId + " thành công.");
-            }
-        } finally {
-            DBConnection.closePreparedStatement(pstmt);
-            DBConnection.closeConnection(conn);
-        }
-    }
+		try (Connection conn = DBConnection.getConnection();
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql)) {
 
-    public List<User> getAllUsers() throws SQLException {
-        List<User> userList = new ArrayList<>();
-        String sql = "SELECT user_id, fullname, role, gender, birthday, phone, email, imagepath, password FROM tbl_users";
+			while (rs.next()) {
+				User user = new User(rs.getInt("user_id"), rs.getString("fullname"), rs.getString("gender"),
+						rs.getDate("birthday"), rs.getString("phone"), rs.getString("email"), rs.getString("imagepath"),
+						rs.getString("password"), rs.getString("role"));
+				userList.add(user);
+			}
+		}
+		return userList;
+	}
 
-        try (Connection conn = DBConnection.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+	public boolean checkPassword(String email, String inputPassword) {
+		String sql = "SELECT password FROM tbl_users WHERE email = ?";
 
-            while (rs.next()) {
-                User user = new User(
-                    rs.getInt("user_id"),
-                    rs.getString("fullname"),
-                    rs.getString("gender"),
-                    rs.getDate("birthday"),
-                    rs.getString("phone"),
-                    rs.getString("email"),
-                    rs.getString("imagepath"),
-                    rs.getString("password"),
-                    rs.getString("role")
-                );
-                userList.add(user);
-            }
-        }
-        return userList;
-    }
+		try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-    
-    public boolean checkPassword(String email, String inputPassword) {
-        String sql = "SELECT password FROM tbl_users WHERE email = ?";
+			stmt.setString(1, email);
+			ResultSet rs = stmt.executeQuery();
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+			if (rs.next()) {
+				String storedPassword = rs.getString("password");
+				return storedPassword.equals(inputPassword);
+			}
 
-            stmt.setString(1, email);
-            ResultSet rs = stmt.executeQuery();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-            if (rs.next()) {
-                String storedPassword = rs.getString("password");
-                return storedPassword.equals(inputPassword); 
-            }
+		return false;
+	}
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+	public boolean updatePassword(String email, String newPassword) {
+		String sql = "UPDATE tbl_users SET password = ? WHERE email = ?";
 
-        return false;
-    }
-    
-    public boolean updatePassword(String email, String newPassword) {
-        String sql = "UPDATE tbl_users SET password = ? WHERE email = ?";
+		try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setString(1, newPassword);
+			stmt.setString(2, email);
 
-            stmt.setString(1, newPassword);
-            stmt.setString(2, email);
+			int rowsAffected = stmt.executeUpdate();
+			return rowsAffected > 0;
 
-            int rowsAffected = stmt.executeUpdate();
-            return rowsAffected > 0;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+		return false;
+	}
 
-        return false;
-    }
-    
-    public boolean updateAvatar(String email, String imagePath) {
-        String sql = "UPDATE tbl_users SET imagepath = ? WHERE email = ?";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, imagePath);
-            stmt.setString(2, email);
-            return stmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
+	public boolean updateAvatar(String email, String imagePath) {
+		String sql = "UPDATE tbl_users SET imagepath = ? WHERE email = ?";
+		try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setString(1, imagePath);
+			stmt.setString(2, email);
+			return stmt.executeUpdate() > 0;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 }

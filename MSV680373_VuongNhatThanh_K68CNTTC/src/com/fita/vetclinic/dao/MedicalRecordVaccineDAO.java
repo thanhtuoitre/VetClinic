@@ -28,9 +28,9 @@ public class MedicalRecordVaccineDAO {
 
 			pstmt.setInt(1, mrv.getRecordId());
 			pstmt.setInt(2, mrv.getVaccineId());
-			pstmt.setDate(3, DateTimeUtil.convertUtilDateToSqlDate(mrv.getVaccinationDate())); // Xử lý Date
+			pstmt.setDate(3, DateTimeUtil.convertUtilDateToSqlDate(mrv.getVaccinationDate()));
 			pstmt.setString(4, mrv.getBatchNumber());
-			pstmt.setDate(5, DateTimeUtil.convertUtilDateToSqlDate(mrv.getNextDueDate())); // Xử lý Date
+			pstmt.setDate(5, DateTimeUtil.convertUtilDateToSqlDate(mrv.getNextDueDate()));
 
 			int affectedRows = pstmt.executeUpdate();
 
@@ -61,17 +61,16 @@ public class MedicalRecordVaccineDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, recordId);
 			pstmt.setInt(2, vaccineId);
-			pstmt.setDate(3, DateTimeUtil.convertUtilDateToSqlDate(vaccinationDate)); // Chuyển đổi Date cho WHERE
-																						// clause
+			pstmt.setDate(3, DateTimeUtil.convertUtilDateToSqlDate(vaccinationDate));
+
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
 				mrv = new MedicalRecordVaccine(AccessDataConverterUtil.getInt(rs, "record_id"),
 						AccessDataConverterUtil.getInt(rs, "vaccine_id"),
-						AccessDataConverterUtil.getDate(rs, "vaccination_date"), // Đọc Date
+						AccessDataConverterUtil.getDate(rs, "vaccination_date"),
 						AccessDataConverterUtil.getString(rs, "batch_number"),
-						AccessDataConverterUtil.getDate(rs, "next_due_date") // Đọc Date
-				);
+						AccessDataConverterUtil.getDate(rs, "next_due_date"));
 			}
 		} finally {
 			DBConnection.closeResultSet(rs);

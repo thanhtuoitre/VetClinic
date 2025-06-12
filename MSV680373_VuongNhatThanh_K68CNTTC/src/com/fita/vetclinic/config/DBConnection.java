@@ -8,11 +8,9 @@ import java.sql.Statement;
 
 public class DBConnection {
 	
-	// Đường dẫn tới file Access DB.
 	private final static String DB_PATH = "resources/databases/VetClinicDB.accdb";
 	private static final String DB_URL = "jdbc:ucanaccess://" + DB_PATH;
 	
-	// Lấy connection kết nối tới database Access.
 	public static Connection getConnection() {
 		Connection conn = null;
 		try {
@@ -25,7 +23,6 @@ public class DBConnection {
 		return conn;	
 	}
 	
-	// Đóng kết nối.
 	public static void closeConnection(Connection conn) {
 		if (conn != null) {
 			try {
@@ -37,7 +34,6 @@ public class DBConnection {
 		}
 	}
 	
-	// Đóng PreparedStatement
 	public static void closePreparedStatement(PreparedStatement ps) {
 		if (ps != null) {
 			try {
@@ -48,7 +44,6 @@ public class DBConnection {
 		}
 	}
 	
-	// Đóng Statement
 	public static void closeStatement(Statement st) {
 		if (st != null) {
 			try {
@@ -59,7 +54,6 @@ public class DBConnection {
 		}
 	}
 	
-	// Đóng ResultSet
 	public static void closeResultSet(ResultSet rs) {
 		if (rs != null) {
 			try {

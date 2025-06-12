@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class Appointment {
 	private int appointmentId;
-	private int petId; // FK to tbl_pets
-	private int doctorId; // FK to tbl_doctors
+	private int petId; // FK tbl_pets
+	private int doctorId; // FK tbl_doctors
 	private Date appointmentDate; 
 	private String reason;
 	private String status;
@@ -22,7 +22,7 @@ public class Appointment {
 		this.status = status;
 	}
 
-	// --- Getters and Setters ---
+	
 	public int getAppointmentId() {
 		return appointmentId;
 	}

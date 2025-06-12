@@ -32,7 +32,7 @@ public class AccountController {
 	private PasswordField txtOldPassword, txtNewPassword, txtConfirmPassword;
 
 	@FXML
-	private Button btnBack;
+	private Button btnBack, btnSavePassword, btnChangeAvatar;
 
 	@FXML
 	private ImageView avatarImage;
@@ -41,26 +41,25 @@ public class AccountController {
 
 	@FXML
 	private void initialize() {
-	    User currentUser = UserSession.getInstance().getUser();
+		User currentUser = UserSession.getInstance().getUser();
 
-	    if (currentUser != null) {
-	        lblFullname.setText(currentUser.getFullname());
-	        lblGender.setText(currentUser.getGender());
-	        lblDob.setText(DateTimeUtil.format(currentUser.getBirthday(), "dd/MM/yyyy"));
-	        lblPhone.setText(currentUser.getPhone());
-	        lblEmail.setText(currentUser.getEmail());
-	        lblRole.setText(currentUser.getRole());
+		if (currentUser != null) {
+			lblFullname.setText(currentUser.getFullname());
+			lblGender.setText(currentUser.getGender());
+			lblDob.setText(DateTimeUtil.format(currentUser.getBirthday(), "dd/MM/yyyy"));
+			lblPhone.setText(currentUser.getPhone());
+			lblEmail.setText(currentUser.getEmail());
+			lblRole.setText(currentUser.getRole());
 
-	        // ✅ Load ảnh từ đường dẫn tương đối, không dùng classpath
-	        File avatarFile = new File(System.getProperty("user.dir"), "resources/" + currentUser.getImagePath());
-	        if (avatarFile.exists()) {
-	            avatarImage.setImage(new Image(avatarFile.toURI().toString()));
-	        } else {
-	            System.err.println("Không tìm thấy ảnh đại diện: " + avatarFile.getAbsolutePath());
-	        }
-	    } else {
-	        AlertUtil.showErrorAlert("Lỗi", "Không tìm thấy thông tin người dùng.");
-	    }
+			File avatarFile = new File(System.getProperty("user.dir"), "resources/" + currentUser.getImagePath());
+			if (avatarFile.exists()) {
+				avatarImage.setImage(new Image(avatarFile.toURI().toString()));
+			} else {
+				System.err.println("Không tìm thấy ảnh đại diện: " + avatarFile.getAbsolutePath());
+			}
+		} else {
+			AlertUtil.showErrorAlert("Lỗi", "Không tìm thấy thông tin người dùng.");
+		}
 	}
 
 	@FXML

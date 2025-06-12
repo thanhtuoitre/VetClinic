@@ -31,7 +31,7 @@ public class MedicalRecordDAO {
 			pstmt.setDate(3, DateTimeUtil.convertUtilDateToSqlDate(medicalRecord.getRecordDate()));
 			pstmt.setString(4, medicalRecord.getDiagnosis());
 			pstmt.setString(5, medicalRecord.getTreatment());
-			pstmt.setString(6, medicalRecord.getNotes()); // ĐÃ SỬA: Thêm giá trị cho 'notes'
+			pstmt.setString(6, medicalRecord.getNotes());
 
 			int affectedRows = pstmt.executeUpdate();
 
@@ -56,7 +56,6 @@ public class MedicalRecordDAO {
 
 	public MedicalRecord getMedicalRecordById(int recordId) throws SQLException {
 		MedicalRecord medicalRecord = null;
-		// ĐÃ SỬA: Thêm cột 'notes' vào câu lệnh SELECT
 		String sql = "SELECT record_id, pet_id, doctor_id, record_date, diagnosis, treatment, notes FROM tbl_medical_records WHERE record_id = ?";
 
 		Connection conn = null;
@@ -75,8 +74,7 @@ public class MedicalRecordDAO {
 						AccessDataConverterUtil.getDate(rs, "record_date"),
 						AccessDataConverterUtil.getString(rs, "diagnosis"),
 						AccessDataConverterUtil.getString(rs, "treatment"),
-						AccessDataConverterUtil.getString(rs, "notes") // ĐÃ SỬA: Đọc giá trị cho 'notes'
-				);
+						AccessDataConverterUtil.getString(rs, "notes"));
 			}
 		} finally {
 			DBConnection.closeResultSet(rs);
@@ -87,7 +85,6 @@ public class MedicalRecordDAO {
 	}
 
 	public void updateMedicalRecord(MedicalRecord medicalRecord) throws SQLException {
-		// ĐÃ SỬA: Thêm cột 'notes' vào câu lệnh UPDATE
 		String sql = "UPDATE tbl_medical_records SET pet_id = ?, doctor_id = ?, record_date = ?, diagnosis = ?, treatment = ?, notes = ? WHERE record_id = ?";
 
 		Connection conn = null;
@@ -102,7 +99,7 @@ public class MedicalRecordDAO {
 			pstmt.setDate(3, DateTimeUtil.convertUtilDateToSqlDate(medicalRecord.getRecordDate()));
 			pstmt.setString(4, medicalRecord.getDiagnosis());
 			pstmt.setString(5, medicalRecord.getTreatment());
-			pstmt.setString(6, medicalRecord.getNotes()); // ĐÃ SỬA: Ghi giá trị cho 'notes'
+			pstmt.setString(6, medicalRecord.getNotes());
 			pstmt.setInt(7, medicalRecord.getRecordId());
 
 			int affectedRows = pstmt.executeUpdate();
@@ -144,7 +141,7 @@ public class MedicalRecordDAO {
 
 	public List<MedicalRecord> getAllMedicalRecords() throws SQLException {
 		List<MedicalRecord> medicalRecordList = new ArrayList<>();
-		
+
 		String sql = "SELECT record_id, pet_id, doctor_id, record_date, diagnosis, treatment, notes FROM tbl_medical_records";
 
 		Connection conn = null;
@@ -162,8 +159,7 @@ public class MedicalRecordDAO {
 						AccessDataConverterUtil.getDate(rs, "record_date"),
 						AccessDataConverterUtil.getString(rs, "diagnosis"),
 						AccessDataConverterUtil.getString(rs, "treatment"),
-						AccessDataConverterUtil.getString(rs, "notes") // ĐÃ SỬA: Đọc giá trị cho 'notes'
-				));
+						AccessDataConverterUtil.getString(rs, "notes")));
 			}
 		} finally {
 			DBConnection.closeResultSet(rs);

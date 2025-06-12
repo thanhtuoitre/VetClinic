@@ -1,72 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="700" prefWidth="1000" style="-fx-background-color: linear-gradient(to bottom right, #f5f7fa, #c3cfe2);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fita.vetclinic.controllers.AccountController">
+<BorderPane prefHeight="700" prefWidth="1150"
+    style="-fx-background-color: linear-gradient(to bottom right, #a1c4fd, #c2e9fb);"
+    xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.fita.vetclinic.controllers.AccountController">
 
-    <!-- Top: Nút quay về -->
+    <!-- Nút quay về -->
     <top>
-        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 10 20;">
-            <Button fx:id="btnBack" onAction="#handleBack" style="-fx-background-color: #e0e0e0; -fx-font-weight: bold; -fx-background-radius: 8;" text="← Quay về" />
+        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 15 30;">
+            <Button fx:id="btnBack" onAction="#handleBack"
+                style="-fx-background-color: #dbe6fd; -fx-text-fill: #334e68; -fx-font-size: 14px; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 8 18;"
+                text="← Quay về" />
         </HBox>
     </top>
 
+    <!-- Nội dung -->
     <center>
-        <VBox alignment="TOP_CENTER" spacing="25" style="-fx-padding: 40 60;">
+        <VBox alignment="TOP_CENTER" spacing="30" style="-fx-padding: 40 60;" VBox.vgrow="ALWAYS">
 
-            <VBox maxWidth="800" spacing="30" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 30; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 5);">
+            <!-- Thẻ trắng -->
+            <VBox spacing="30"
+                style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 30; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 5);"
+                VBox.vgrow="ALWAYS">
 
                 <!-- Tiêu đề -->
-                <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #334e68;" text="👤 Thông tin tài khoản" />
+                <Label text="👤 Thông tin tài khoản"
+                    style="-fx-font-size: 24px; -fx-text-fill: #334e68; -fx-font-weight: bold;" />
 
                 <!-- Thông tin người dùng -->
-                <HBox alignment="CENTER_LEFT" spacing="25">
-                    <VBox alignment="CENTER" spacing="5">
-                        <ImageView fx:id="avatarImage" fitHeight="100" fitWidth="100" preserveRatio="true" />
-                        <Button fx:id="btnChangeAvatar" onAction="#handleChangeAvatar" style="-fx-background-color: transparent; -fx-text-fill: #4a6fa5; -fx-font-size: 12px; -fx-underline: true;" text="🖼 Đổi ảnh" />
+                <HBox spacing="30" HBox.hgrow="ALWAYS">
+                    <VBox alignment="CENTER" spacing="8">
+                        <ImageView fx:id="avatarImage" fitWidth="100" fitHeight="100" preserveRatio="true" />
+                        <Button fx:id="btnChangeAvatar" onAction="#handleChangeAvatar"
+                            style="-fx-background-color: transparent; -fx-text-fill: #6b8ce3; -fx-font-size: 12px; -fx-underline: true;"
+                            text="🖼 Đổi ảnh" />
                     </VBox>
 
-                    <GridPane hgap="20" vgap="10">
-                        <Label style="-fx-text-fill: #334e68;" text="Họ và tên:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <GridPane hgap="20" vgap="10" HBox.hgrow="ALWAYS">
+                        <Label text="Họ và tên:" style="-fx-text-fill: #334e68;" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                         <Label fx:id="lblFullname" style="-fx-text-fill: #334e68;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-                        <Label style="-fx-text-fill: #334e68;" text="Giới tính:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <Label text="Giới tính:" style="-fx-text-fill: #334e68;" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                         <Label fx:id="lblGender" style="-fx-text-fill: #334e68;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                        <Label style="-fx-text-fill: #334e68;" text="Ngày sinh:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <Label text="Ngày sinh:" style="-fx-text-fill: #334e68;" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                         <Label fx:id="lblDob" style="-fx-text-fill: #334e68;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-                        <Label style="-fx-text-fill: #334e68;" text="Số điện thoại:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                        <Label text="Số điện thoại:" style="-fx-text-fill: #334e68;" GridPane.columnIndex="0" GridPane.rowIndex="3" />
                         <Label fx:id="lblPhone" style="-fx-text-fill: #334e68;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-                        <Label style="-fx-text-fill: #334e68;" text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                        <Label text="Email:" style="-fx-text-fill: #334e68;" GridPane.columnIndex="0" GridPane.rowIndex="4" />
                         <Label fx:id="lblEmail" style="-fx-text-fill: #334e68;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
-                        <Label style="-fx-text-fill: #334e68;" text="Vai trò:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                        <Label text="Vai trò:" style="-fx-text-fill: #334e68;" GridPane.columnIndex="0" GridPane.rowIndex="5" />
                         <Label fx:id="lblRole" style="-fx-text-fill: #334e68;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-
-                        <columnConstraints>
-                            <ColumnConstraints />
-                            <ColumnConstraints />
-                        </columnConstraints>
-                        <rowConstraints>
-                            <RowConstraints />
-                            <RowConstraints />
-                            <RowConstraints />
-                            <RowConstraints />
-                            <RowConstraints />
-                            <RowConstraints />
-                        </rowConstraints>
                     </GridPane>
                 </HBox>
 
@@ -74,17 +65,22 @@
 
                 <!-- Đổi mật khẩu -->
                 <VBox spacing="15">
-                    <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #334e68;" text="🔒 Đổi mật khẩu" />
+                    <Label text="🔒 Đổi mật khẩu"
+                        style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #334e68;" />
 
-                    <PasswordField fx:id="txtOldPassword" promptText="Mật khẩu hiện tại" style="-fx-background-radius: 10; -fx-padding: 10;" />
-                    <PasswordField fx:id="txtNewPassword" promptText="Mật khẩu mới" style="-fx-background-radius: 10; -fx-padding: 10;" />
-                    <PasswordField fx:id="txtConfirmPassword" promptText="Nhập lại mật khẩu mới" style="-fx-background-radius: 10; -fx-padding: 10;" />
+                    <PasswordField fx:id="txtOldPassword" promptText="Mật khẩu hiện tại"
+                        style="-fx-background-radius: 10; -fx-padding: 10;" />
+                    <PasswordField fx:id="txtNewPassword" promptText="Mật khẩu mới"
+                        style="-fx-background-radius: 10; -fx-padding: 10;" />
+                    <PasswordField fx:id="txtConfirmPassword" promptText="Nhập lại mật khẩu mới"
+                        style="-fx-background-radius: 10; -fx-padding: 10;" />
 
                     <HBox alignment="CENTER_RIGHT">
-                        <Button fx:id="btnSavePassword" onAction="#handleChangePassword" style="-fx-background-color: #4a6fa5; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 24; -fx-background-radius: 12;" text="Lưu mật khẩu" />
+                        <Button fx:id="btnSavePassword" onAction="#handleChangePassword"
+                            style="-fx-background-color: #6b8ce3; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 24; -fx-background-radius: 12;"
+                            text="Lưu mật khẩu" />
                     </HBox>
                 </VBox>
-
             </VBox>
         </VBox>
     </center>

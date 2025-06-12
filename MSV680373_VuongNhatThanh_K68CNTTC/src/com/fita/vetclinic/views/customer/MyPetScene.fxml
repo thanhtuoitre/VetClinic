@@ -1,58 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="700" prefWidth="1000"
-            style="-fx-background-color: linear-gradient(to bottom right, #f5f7fa, #c3cfe2);"
+<BorderPane prefHeight="700" prefWidth="1150"
+            style="-fx-background-color: linear-gradient(to bottom right, #a1c4fd, #c2e9fb);"
             xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.fita.vetclinic.controllers.customer.MyPetSceneController">
 
     <center>
-        <VBox alignment="TOP_CENTER" spacing="20" style="-fx-padding: 40 60;">
-
+        <VBox alignment="TOP_CENTER" spacing="30" style="-fx-padding: 40 60;">
+            
             <!-- Tiêu đề -->
             <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #334e68;"
                    text="🐾 Thú cưng của tôi" />
 
-            <!-- Các nút chức năng -->
-            <HBox alignment="CENTER" spacing="10">
-                <!-- Nút quay về -->
-                <Button fx:id="btnBackHome" onAction="#handleBackHome"
-                        style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-padding: 8 16; -fx-background-radius: 10; -fx-font-weight: bold;"
-                        text="🏠 Quay về" />
+            <!-- Thẻ trắng chứa nút và danh sách -->
+            <VBox spacing="20" style="-fx-background-color: white; -fx-background-radius: 12;
+                                     -fx-padding: 30; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 5);">
 
-                <Button fx:id="btnAddPet" onAction="#handleAddPet"
-                        style="-fx-background-color: #4a6fa5; -fx-text-fill: white; -fx-padding: 8 16; -fx-background-radius: 10; -fx-font-weight: bold;"
-                        text="➕ Thêm thú cưng" />
-                <Button fx:id="btnEditPet" onAction="#handleEditPet"
-                        style="-fx-background-color: #f0ad4e; -fx-text-fill: white; -fx-padding: 8 16; -fx-background-radius: 10; -fx-font-weight: bold;"
-                        text="✏️ Sửa thú cưng" />
-                <Button fx:id="btnDeletePet" onAction="#handleDeletePet"
-                        style="-fx-background-color: #d9534f; -fx-text-fill: white; -fx-padding: 8 16; -fx-background-radius: 10; -fx-font-weight: bold;"
-                        text="🗑️ Xoá thú cưng" />
-            </HBox>
+                <!-- Các nút chức năng -->
+                <HBox alignment="CENTER_LEFT" spacing="15">
+                    <Button fx:id="btnBackHome" onAction="#handleBackHome"
+                            style="-fx-background-color: #6c757d; -fx-text-fill: white;
+                                   -fx-padding: 8 20; -fx-background-radius: 10; -fx-font-weight: bold;"
+                            text="🏠 Quay về" />
+                    
+                    <Button fx:id="btnAddPet" onAction="#handleAddPet"
+                            style="-fx-background-color: #4a6fa5; -fx-text-fill: white;
+                                   -fx-padding: 8 20; -fx-background-radius: 10; -fx-font-weight: bold;"
+                            text="➕ Thêm thú cưng" />
+                    
+                    <Button fx:id="btnEditPet" onAction="#handleEditPet"
+                            style="-fx-background-color: #f0ad4e; -fx-text-fill: white;
+                                   -fx-padding: 8 20; -fx-background-radius: 10; -fx-font-weight: bold;"
+                            text="✏️ Sửa thú cưng" />
+                    
+                    <Button fx:id="btnDeletePet" onAction="#handleDeletePet"
+                            style="-fx-background-color: #d9534f; -fx-text-fill: white;
+                                   -fx-padding: 8 20; -fx-background-radius: 10; -fx-font-weight: bold;"
+                            text="🗑️ Xoá thú cưng" />
+                </HBox>
 
-            <!-- Danh sách thú cưng -->
-            <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
-                <FlowPane fx:id="petFlowPane" hgap="20" vgap="20">
-                    <padding>
-                        <Insets>
-                            <top>10</top>
-                            <right>10</right>
-                            <bottom>10</bottom>
-                            <left>10</left>
-                        </Insets>
-                    </padding>
-                </FlowPane>
-            </ScrollPane>
+                <!-- Danh sách thú cưng -->
+                <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+                    <FlowPane fx:id="petFlowPane" hgap="20" vgap="20">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10" />
+                        </padding>
+                    </FlowPane>
+                </ScrollPane>
+            </VBox>
         </VBox>
     </center>
 </BorderPane>

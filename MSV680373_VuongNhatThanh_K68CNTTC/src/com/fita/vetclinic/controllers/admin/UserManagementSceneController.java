@@ -40,9 +40,9 @@ public class UserManagementSceneController {
 	private PasswordField txtPassword;
 	@FXML
 	private ComboBox<String> cbGender, cbRole;
-	
+
 	@FXML
-	private Button btnAdd,btnEdit,btnDelete,btnBack;
+	private Button btnAdd, btnEdit, btnDelete, btnBack;
 
 	private final UserDAO userDAO = new UserDAO();
 	private final ObservableList<User> userList = FXCollections.observableArrayList();
@@ -74,7 +74,7 @@ public class UserManagementSceneController {
 
 	private void setupComboBoxes() {
 		cbGender.setItems(FXCollections.observableArrayList("Nam", "Nữ", "Khác"));
-		cbRole.setItems(FXCollections.observableArrayList("admin", "bacsy",  "khachhang"));
+		cbRole.setItems(FXCollections.observableArrayList("admin", "bacsy", "khachhang"));
 	}
 
 	private void loadUsers() {

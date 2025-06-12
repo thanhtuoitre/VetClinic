@@ -1,8 +1,8 @@
 package com.fita.vetclinic.models;
 
 public class Doctor {
-	private int doctorId; // PK for Doctor
-	private int userId; // FK to tbl_users
+	private int doctorId; // PK Doctor
+	private int userId; // FK tbl_users
 	private boolean is_active;
 	private String specialization;
 
@@ -16,7 +16,6 @@ public class Doctor {
 		this.specialization = specialization;
 	}
 
-	// --- Getters and Setters ---
 	public int getDoctorId() {
 		return doctorId;
 	}

@@ -1,0 +1,8 @@
+.table-view .column-header-background {
+    -fx-background-color: white; /* nền trắng cho tiêu đề */
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #1f1f1f; /* chữ đen dễ nhìn */
+    -fx-font-weight: bold;
+}

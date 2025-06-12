@@ -2,9 +2,9 @@ package com.fita.vetclinic.models;
 import java.util.Date;
 
 public class MedicalRecordVaccine {
-	private int recordId; // Part of composite PK, FK to MedicalRecord
-	private int vaccineId; // Part of composite PK, FK to Vaccine
-	private Date vaccinationDate; // Part of composite PK
+	private int recordId; //PK, FK to MedicalRecord
+	private int vaccineId; //  PK, FK to Vaccine
+	private Date vaccinationDate; // PK
 	private String batchNumber;
 	private Date nextDueDate;
 

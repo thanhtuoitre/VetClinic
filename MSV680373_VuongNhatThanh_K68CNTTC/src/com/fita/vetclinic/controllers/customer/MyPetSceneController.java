@@ -35,7 +35,8 @@ public class MyPetSceneController implements Initializable {
 
     private final PetDAO petDAO = new PetDAO();
     private Pet selectedPet = null;
-    private VBox selectedCard = null;
+    @SuppressWarnings("unused")
+	private VBox selectedCard = null;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

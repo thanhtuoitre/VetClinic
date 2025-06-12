@@ -4,8 +4,7 @@ public class Vaccine {
 	private int vaccineId;
 	private String name; // Tên vaccine
 	private String description;
-	private String manufacture; // Name directly from image ("manufacture")
-
+	private String manufacture; 
 	public Vaccine() {
 	}
 

@@ -8,26 +8,21 @@ import javafx.stage.Stage;
 
 public class MainApp extends Application {
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        // Tải giao diện từ FXML và xử lý lỗi nếu tệp không tồn tại
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/fita/vetclinic/views/LoginScene.fxml"));
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/fita/vetclinic/views/LoginScene.fxml"));
 
-        Parent root = loader.load(); // Nếu không tìm thấy tệp FXML, một ngoại lệ sẽ được ném ra
+		Parent root = loader.load();
 
-        // Tạo và thiết lập Scene
-        Scene scene = new Scene(root);
+		Scene scene = new Scene(root);
 
-        // Thiết lập cửa sổ (primaryStage)
-        primaryStage.setTitle("VetClinic - Đăng nhập");
-        primaryStage.setScene(scene);
-                
-        // Hiển thị cửa sổ đăng nhập
-        primaryStage.show();
-    }
+		primaryStage.setTitle("VetClinic - Đăng nhập");
+		primaryStage.setScene(scene);
 
-    public static void main(String[] args) {
-        // Đảm bảo ứng dụng được khởi chạy từ JavaFX
-        launch(args);
-    }
+		primaryStage.show();
+	}
+
+	public static void main(String[] args) {
+		launch(args);
+	}
 }

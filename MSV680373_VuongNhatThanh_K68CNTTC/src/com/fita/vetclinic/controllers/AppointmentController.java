@@ -97,21 +97,19 @@ public class AppointmentController implements Initializable {
 
 	@FXML
 	private void handleBack() {
-	    try {
-	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/fita/vetclinic/views/DashboardScene.fxml"));
-	        Parent root = loader.load();
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/fita/vetclinic/views/DashboardScene.fxml"));
+			Parent root = loader.load();
 
-	        Stage stage = (Stage) appointmentList.getScene().getWindow();
-	        stage.setScene(new Scene(root));
-	        stage.setTitle("VetClinic - Trang chủ");
-	        stage.show();
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        AlertUtil.showErrorAlert("Lỗi", "Không thể quay lại trang chủ.", e.getMessage());
-	    }
+			Stage stage = (Stage) appointmentList.getScene().getWindow();
+			stage.setScene(new Scene(root));
+			stage.setTitle("VetClinic - Trang chủ");
+			stage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+			AlertUtil.showErrorAlert("Lỗi", "Không thể quay lại trang chủ.", e.getMessage());
+		}
 	}
-
-
 
 	private void loadAppointments() {
 		appointmentList.getChildren().clear();
