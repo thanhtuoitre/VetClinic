@@ -30,7 +30,10 @@ public class DashboardController {
     private VBox contentArea;
 
     @FXML
-    private Button btnHome, btnNotification, btnAccount, btnSchedule, btnLogout;
+    private Button btnHome, btnNotification, btnAccount, btnSchedule, btnLogout,btnHistory,btnBook,btnMyPet;
+
+    @FXML
+    private Button btnManageAccount;
 
     private final PetDAO petDAO = new PetDAO();
     private final AppointmentDAO appointmentDAO = new AppointmentDAO();
@@ -111,6 +114,22 @@ public class DashboardController {
             AlertUtil.showErrorAlert("Lỗi", "Không thể mở giao diện Thông báo.");
         }
     }
+    
+    @FXML
+    private void handleHistory() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/fita/vetclinic/views/MedicalHistoryScene.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) btnNotification.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("VetClinic - Thông báo");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            AlertUtil.showErrorAlert("Lỗi", "Không thể mở giao diện Thông báo.");
+        }
+    }
 
     @FXML
     private void handleAccount() {
@@ -146,27 +165,90 @@ public class DashboardController {
     
     @FXML
     private void handleBook() {
+    	User currentUser = UserSession.getInstance().getUser();
+
+    	if (currentUser == null) {
+    		AlertUtil.showErrorAlert("Phiên hết hạn", "Vui lòng đăng nhập lại.");
+    		return;
+    	}
+
+    	String role = currentUser.getRole().toLowerCase();
+    	if (!role.equals("khachhang") && !role.equals("admin")) {
+    		AlertUtil.showWarningAlert("Không được phép", "Chỉ khách hàng hoặc admin mới được phép đặt lịch.");
+    		return;
+    	}
+
+    	try {
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/fita/vetclinic/views/customer/BookingScene.fxml"));
+    		Parent root = loader.load();
+
+    		Stage stage = (Stage) contentArea.getScene().getWindow();
+    		stage.setScene(new Scene(root));
+    		stage.setTitle("Đặt lịch hẹn - VetClinic");
+    		stage.show();
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		AlertUtil.showErrorAlert("Lỗi", "Không thể mở màn hình đặt lịch.");
+    	}
+    }
+    
+    @FXML
+    private void handleMyPet() {
+    	User currentUser = UserSession.getInstance().getUser();
+
+    	if (currentUser == null) {
+    		AlertUtil.showErrorAlert("Phiên hết hạn", "Vui lòng đăng nhập lại.");
+    		return;
+    	}
+
+    	String role = currentUser.getRole().toLowerCase();
+    	if (!role.equals("khachhang") && !role.equals("admin")) {
+    		AlertUtil.showWarningAlert("Không được phép", "Chỉ khách hàng hoặc admin mới được phép quản lý thú cưng.");
+    		return;
+    	}
+
+    	try {
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/fita/vetclinic/views/customer/MyPetScene.fxml"));
+    		Parent root = loader.load();
+
+    		Stage stage = (Stage) contentArea.getScene().getWindow();
+    		stage.setScene(new Scene(root));
+    		stage.setTitle("Quản lý thú cưng - VetClinic");
+    		stage.show();
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		AlertUtil.showErrorAlert("Lỗi", "Không thể mở màn hình quản lý thú cưng.");
+    	}
+    }
+    
+    @FXML
+    private void handleManageAccount() {
         User currentUser = UserSession.getInstance().getUser();
 
-        if (currentUser == null || !"khachhang".equalsIgnoreCase(currentUser.getRole())) {
-            AlertUtil.showWarningAlert("Không được phép", "Chỉ khách hàng mới được đặt lịch.");
+        if (currentUser == null) {
+            AlertUtil.showErrorAlert("Phiên hết hạn", "Vui lòng đăng nhập lại.");
+            return;
+        }
+
+        String role = currentUser.getRole().toLowerCase();
+        if (!role.equals("admin")) {
+            AlertUtil.showWarningAlert("Không được phép", "Chỉ quản trị viên mới được truy cập quản lý tài khoản.");
             return;
         }
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/fita/vetclinic/views/customer/BookingScene.fxml")); 
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/fita/vetclinic/views/admin/UserManagementScene.fxml"));
             Parent root = loader.load();
 
             Stage stage = (Stage) contentArea.getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("Đặt lịch hẹn - VetClinic");
+            stage.setTitle("Quản lý tài khoản - VetClinic");
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
-            AlertUtil.showErrorAlert("Lỗi", "Không thể mở màn hình đặt lịch.");
+            AlertUtil.showErrorAlert("Lỗi", "Không thể mở màn hình quản lý tài khoản.");
         }
     }
-
 
 
     private void refreshHome() {

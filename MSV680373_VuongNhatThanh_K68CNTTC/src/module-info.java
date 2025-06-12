@@ -1,11 +1,18 @@
 module MSV680373_VuongNhatThanh_K68CNTTC {
-    requires javafx.controls;
-    requires javafx.fxml;
-    requires java.sql;
-    requires transitive javafx.graphics;  // Đảm bảo JavaFX có thể truy cập vào các lớp trong module này
+    requires transitive javafx.controls;
+    requires transitive javafx.fxml;
+    requires transitive javafx.graphics;
+    requires transitive java.sql;
+    opens com.fita.vetclinic.controllers.customer to javafx.fxml;
 
-    exports com.fita.vetclinic;  // Xuất package chứa MainApp và các lớp khác
-    opens com.fita.vetclinic.controllers to javafx.fxml;  // Nếu bạn có các controller và muốn mở cho FXML
-    exports com.fita.vetclinic.controllers.customer to javafx.fxml;
+    exports com.fita.vetclinic;
+    exports com.fita.vetclinic.controllers;
+    exports com.fita.vetclinic.models;
+    exports com.fita.vetclinic.dao;
+    exports com.fita.vetclinic.config;
+    exports com.fita.vetclinic.utils;
 
+    opens com.fita.vetclinic to javafx.fxml;
+    opens com.fita.vetclinic.controllers to javafx.fxml;
+    opens com.fita.vetclinic.controllers.admin to javafx.fxml;
 }

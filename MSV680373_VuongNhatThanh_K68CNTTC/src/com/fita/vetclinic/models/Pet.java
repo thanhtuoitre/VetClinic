@@ -10,14 +10,26 @@ public class Pet {
 	private String gender;
 	private Date birthdate;
 	private double weight;
-	private int ownerId;
+	private int userId;
 	private String imagePath; 
 
 	public Pet() {
 	}
 
+	
+	public Pet(String name, String species, String breed, String gender, Date birthdate, double weight, int userId, String imagePath) {
+	    this.name = name;
+	    this.species = species;
+	    this.breed = breed;
+	    this.gender = gender;
+	    this.birthdate = birthdate;
+	    this.weight = weight;
+	    this.userId = userId;
+	    this.imagePath = imagePath;
+	}
+
 	public Pet(int petId, String name, String species, String breed, String gender, Date birthdate, double weight,
-			int ownerId, String imagePath) {
+			int userId, String imagePath) {
 		this.petId = petId;
 		this.name = name;
 		this.species = species;
@@ -25,7 +37,7 @@ public class Pet {
 		this.gender = gender;
 		this.birthdate = birthdate;
 		this.weight = weight;
-		this.ownerId = ownerId;
+		this.userId = userId;
 		this.imagePath = imagePath;
 	}
 
@@ -85,12 +97,12 @@ public class Pet {
 		this.weight = weight;
 	}
 
-	public int getOwnerId() {
-		return ownerId;
+	public int getuserId() {
+		return userId;
 	}
 
-	public void setOwnerId(int ownerId) {
-		this.ownerId = ownerId;
+	public void setuserId(int userId) {
+		this.userId = userId;
 	}
 
 	public String getImagePath() {
@@ -100,4 +112,10 @@ public class Pet {
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
 	}
+	
+	@Override
+	public String toString() {
+	    return "ID: " + petId + " - " + name;
+	}
+
 }

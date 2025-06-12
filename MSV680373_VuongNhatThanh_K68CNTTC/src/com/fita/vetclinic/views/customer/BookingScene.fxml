@@ -1,58 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.geometry.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx/21.0.7"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.fita.vetclinic.controllers.customer.BookingController"
-            prefWidth="700" prefHeight="500"
-            style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #ccc; -fx-border-width: 1;">
+<BorderPane prefHeight="500" prefWidth="700" style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #ccc; -fx-border-width: 1;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fita.vetclinic.controllers.customer.BookingController">
     
     <center>
-        <VBox spacing="15" alignment="TOP_CENTER" style="-fx-padding: 30;">
-            <Label text="📅 Đặt lịch khám"
-                   style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #334e68;" />
+        <VBox alignment="TOP_CENTER" spacing="15" style="-fx-padding: 30;">
+            <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #334e68;" text="📅 Đặt lịch khám" />
 
             <GridPane hgap="15" vgap="15">
                 <columnConstraints>
-                    <ColumnConstraints halignment="RIGHT" minWidth="150"/>
-                    <ColumnConstraints halignment="LEFT" minWidth="300"/>
+                    <ColumnConstraints halignment="RIGHT" minWidth="150" />
+                    <ColumnConstraints halignment="LEFT" minWidth="300" />
                 </columnConstraints>
 
                 <!-- Pet -->
-                <Label text="Thú cưng:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                <ComboBox fx:id="cbPet" promptText="Chọn thú cưng"
-                          GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="250"/>
+                <Label text="Thú cưng:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <ComboBox fx:id="cbPet" prefWidth="250" promptText="Chọn thú cưng" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
                 <!-- Doctor -->
-                <Label text="Bác sĩ:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                <ComboBox fx:id="cbDoctor" promptText="Chọn bác sĩ"
-                          GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="250"/>
+                <Label text="Bác sĩ:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <ComboBox fx:id="cbDoctor" prefWidth="250" promptText="Chọn bác sĩ" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
                 <!-- Date -->
-                <Label text="Ngày khám:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                <DatePicker fx:id="dpDate" GridPane.rowIndex="2" GridPane.columnIndex="1" prefWidth="250"/>
+                <Label text="Ngày khám:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <DatePicker fx:id="dpDate" prefWidth="250" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
                 <!-- Time -->
-                <Label text="Giờ:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                <ComboBox fx:id="cbTime" promptText="Chọn giờ"
-                          GridPane.rowIndex="3" GridPane.columnIndex="1" prefWidth="250"/>
+                <Label text="Giờ:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <ComboBox fx:id="cbTime" prefWidth="250" promptText="Chọn giờ" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
                 <!-- Reason -->
-                <Label text="Lý do khám:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                <TextArea fx:id="txtReason" promptText="Nhập lý do khám"
-                          GridPane.rowIndex="4" GridPane.columnIndex="1" prefWidth="250" prefHeight="80"/>
+                <Label text="Lý do khám:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                <TextArea fx:id="txtReason" prefHeight="80" prefWidth="250" promptText="Nhập lý do khám" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <rowConstraints>
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+            </rowConstraints>
             </GridPane>
 
             <!-- Buttons -->
-            <HBox spacing="20" alignment="CENTER_RIGHT" style="-fx-padding: 20 0 0 0;">
-                <Button fx:id="btnCancel" text="Huỷ"
-                        style="-fx-background-color: #e0e0e0; -fx-text-fill: #555; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10;"/>
-                <Button fx:id="btnSubmit" text="Đặt lịch"
-                        style="-fx-background-color: #4a6fa5; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10;"/>
+            <HBox alignment="CENTER_RIGHT" spacing="20" style="-fx-padding: 20 0 0 0;">
+            <Button fx:id="btnBack" onAction="#handleBack" style="-fx-background-color: #e0e0e0; -fx-text-fill: #555; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10;" text="Quay về" />
+                <Button fx:id="btnCancel" onAction="#handleCancel" style="-fx-background-color: #e0e0e0; -fx-text-fill: #555; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10;" text="Huỷ" />
+                <Button fx:id="btnSubmit" style="-fx-background-color: #4a6fa5; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10;" text="Đặt lịch" />
             </HBox>
         </VBox>
     </center>

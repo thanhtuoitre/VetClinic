@@ -144,7 +144,7 @@ public class MedicalRecordDAO {
 
 	public List<MedicalRecord> getAllMedicalRecords() throws SQLException {
 		List<MedicalRecord> medicalRecordList = new ArrayList<>();
-		// ĐÃ SỬA: Thêm cột 'notes' vào câu lệnh SELECT
+		
 		String sql = "SELECT record_id, pet_id, doctor_id, record_date, diagnosis, treatment, notes FROM tbl_medical_records";
 
 		Connection conn = null;

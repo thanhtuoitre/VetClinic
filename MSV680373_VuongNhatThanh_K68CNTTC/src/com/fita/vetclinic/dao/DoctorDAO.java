@@ -162,4 +162,25 @@ public class DoctorDAO {
 	    return doctorList;
 	}
 
+	public String getDoctorName(int doctorId) {
+	    String sql = """
+	        SELECT u.fullname
+	        FROM tbl_doctors d
+	        JOIN tbl_users u ON d.user_id = u.user_id
+	        WHERE d.doctor_id = ?
+	        """;
+
+	    try (Connection conn = DBConnection.getConnection();
+	         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+	        stmt.setInt(1, doctorId);
+	        try (ResultSet rs = stmt.executeQuery()) {
+	            if (rs.next()) return rs.getString("fullname");
+	        }
+	    } catch (Exception e) {
+	        System.err.println("Lỗi lấy tên bác sĩ: " + e.getMessage());
+	    }
+	    return "Không xác định";
+	}
+
 }

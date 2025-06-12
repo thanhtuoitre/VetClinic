@@ -15,7 +15,7 @@ public class User {
 
     // Constructor mặc định
     public User() {
-        this.role = "Khách hàng"; 
+        this.role = "khachhang"; 
     }
 
     // Constructor có tham số
@@ -30,6 +30,19 @@ public class User {
         this.role = role != null ? role : "khachhang";  // Nếu role là null, mặc định là "Khách hàng"
     }
 
+    
+ // Constructor có tham số
+    public User(int userID,String fullname, String gender, Date birthday, String phone, String email, String imagePath, String password, String role) {
+        this.userId = userID;
+    	this.fullname = fullname;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.phone = phone;
+        this.email = email;
+        this.imagePath = imagePath != null ? imagePath : "images/icons/user.png";
+        this.password = password;
+        this.role = role != null ? role : "khachhang";  // Nếu role là null, mặc định là "Khách hàng"
+    }
     // Getters and Setters
     public int getUserId() {
         return userId;

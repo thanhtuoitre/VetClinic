@@ -26,7 +26,7 @@ public class PetDAO {
             pstmt.setString(4, pet.getGender());
             pstmt.setDate(5, DateTimeUtil.convertUtilDateToSqlDate(pet.getBirthdate()));
             pstmt.setDouble(6, pet.getWeight());
-            pstmt.setInt(7, pet.getOwnerId()); // user_id
+            pstmt.setInt(7, pet.getuserId()); // user_id
             pstmt.setString(8, pet.getImagePath());
 
             int affectedRows = pstmt.executeUpdate();
@@ -80,7 +80,7 @@ public class PetDAO {
             pstmt.setString(4, pet.getGender());
             pstmt.setDate(5, DateTimeUtil.convertUtilDateToSqlDate(pet.getBirthdate()));
             pstmt.setDouble(6, pet.getWeight());
-            pstmt.setInt(7, pet.getOwnerId());
+            pstmt.setInt(7, pet.getuserId());
             pstmt.setString(8, pet.getImagePath());
             pstmt.setInt(9, pet.getPetId());
 
@@ -168,4 +168,39 @@ public class PetDAO {
         }
         return 0;
     }
+
+	public boolean isPetOwnedByUser(int petId, int userId) {
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(
+                 "SELECT COUNT(*) FROM tbl_pets WHERE pet_id = ? AND user_id = ?")) {
+
+            stmt.setInt(1, petId);
+            stmt.setInt(2, userId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Lỗi kiểm tra thú cưng thuộc người dùng: " + e.getMessage());
+        }
+        return false;
+    }
+
+	public String getPetName(int petId) {
+	    try (Connection conn = DBConnection.getConnection();
+	         PreparedStatement stmt = conn.prepareStatement(
+	             "SELECT name FROM tbl_pets WHERE pet_id = ?")) {
+
+	        stmt.setInt(1, petId);
+	        try (ResultSet rs = stmt.executeQuery()) {
+	            if (rs.next()) return rs.getString("name");
+	        }
+	    } catch (Exception e) {
+	        System.err.println("Lỗi lấy tên thú cưng: " + e.getMessage());
+	    }
+	    return "Không xác định";
+	}
+
 }

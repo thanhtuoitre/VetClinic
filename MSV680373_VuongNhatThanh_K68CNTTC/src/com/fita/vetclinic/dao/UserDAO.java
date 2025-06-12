@@ -57,70 +57,58 @@ public class UserDAO {
         User user = null;
         String sql = "SELECT user_id, fullname, role, gender, birthday, phone, email, imagepath, password FROM tbl_users WHERE user_id = ?";
 
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-        try {
-            conn = DBConnection.getConnection();
-            pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, userId);
-            rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                user = new User(
-                        AccessDataConverterUtil.getString(rs, "fullname"),
-                        AccessDataConverterUtil.getString(rs, "gender"),
-                        AccessDataConverterUtil.getDate(rs, "birthday"),
-                        AccessDataConverterUtil.getString(rs, "phone"),
-                        AccessDataConverterUtil.getString(rs, "email"),
-                        AccessDataConverterUtil.getString(rs, "imagepath"),
-                        AccessDataConverterUtil.getString(rs, "password"),
-                        AccessDataConverterUtil.getString(rs, "role")  // Lấy role
-                );
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    user = new User(
+                            AccessDataConverterUtil.getString(rs, "fullname"),
+                            AccessDataConverterUtil.getString(rs, "gender"),
+                            AccessDataConverterUtil.getDate(rs, "birthday"),
+                            AccessDataConverterUtil.getString(rs, "phone"),
+                            AccessDataConverterUtil.getString(rs, "email"),
+                            AccessDataConverterUtil.getString(rs, "imagepath"),
+                            AccessDataConverterUtil.getString(rs, "password"),
+                            AccessDataConverterUtil.getString(rs, "role")
+                    );
+                    user.setUserId(rs.getInt("user_id")); 
+                }
             }
-        } finally {
-            DBConnection.closeResultSet(rs);
-            DBConnection.closePreparedStatement(pstmt);
-            DBConnection.closeConnection(conn);
         }
         return user;
     }
+
 
     // Lấy người dùng theo email
     public User getUserByEmail(String email) throws SQLException {
         User user = null;
         String sql = "SELECT user_id, fullname, role, gender, birthday, phone, email, imagepath, password FROM tbl_users WHERE email = ?";
 
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-        try {
-            conn = DBConnection.getConnection();
-            pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, email);
-            rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                user = new User(
-                        AccessDataConverterUtil.getString(rs, "fullname"),
-                        AccessDataConverterUtil.getString(rs, "gender"),
-                        AccessDataConverterUtil.getDate(rs, "birthday"),
-                        AccessDataConverterUtil.getString(rs, "phone"),
-                        AccessDataConverterUtil.getString(rs, "email"),
-                        AccessDataConverterUtil.getString(rs, "imagepath"),
-                        AccessDataConverterUtil.getString(rs, "password"),
-                        AccessDataConverterUtil.getString(rs, "role")  // Lấy role
-                );
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    user = new User(
+                            AccessDataConverterUtil.getString(rs, "fullname"),
+                            AccessDataConverterUtil.getString(rs, "gender"),
+                            AccessDataConverterUtil.getDate(rs, "birthday"),
+                            AccessDataConverterUtil.getString(rs, "phone"),
+                            AccessDataConverterUtil.getString(rs, "email"),
+                            AccessDataConverterUtil.getString(rs, "imagepath"),
+                            AccessDataConverterUtil.getString(rs, "password"),
+                            AccessDataConverterUtil.getString(rs, "role")
+                    );
+                    user.setUserId(rs.getInt("user_id")); 
+                }
             }
-        } finally {
-            DBConnection.closeResultSet(rs);
-            DBConnection.closePreparedStatement(pstmt);
-            DBConnection.closeConnection(conn);
         }
         return user;
     }
+
 
     // Cập nhật thông tin người dùng
     public void updateUser(User user) throws SQLException {
@@ -180,39 +168,32 @@ public class UserDAO {
         }
     }
 
-    // Lấy tất cả người dùng
     public List<User> getAllUsers() throws SQLException {
         List<User> userList = new ArrayList<>();
         String sql = "SELECT user_id, fullname, role, gender, birthday, phone, email, imagepath, password FROM tbl_users";
 
-        Connection conn = null;
-        Statement stmt = null;
-        ResultSet rs = null;
-
-        try {
-            conn = DBConnection.getConnection();
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(sql);
+        try (Connection conn = DBConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                userList.add(new User(
-                        AccessDataConverterUtil.getString(rs, "fullname"),
-                        AccessDataConverterUtil.getString(rs, "gender"),
-                        AccessDataConverterUtil.getDate(rs, "birthday"),
-                        AccessDataConverterUtil.getString(rs, "phone"),
-                        AccessDataConverterUtil.getString(rs, "email"),
-                        AccessDataConverterUtil.getString(rs, "imagepath"),
-                        AccessDataConverterUtil.getString(rs, "password"),
-                        AccessDataConverterUtil.getString(rs, "role")  // Lấy role
-                ));
+                User user = new User(
+                    rs.getInt("user_id"),
+                    rs.getString("fullname"),
+                    rs.getString("gender"),
+                    rs.getDate("birthday"),
+                    rs.getString("phone"),
+                    rs.getString("email"),
+                    rs.getString("imagepath"),
+                    rs.getString("password"),
+                    rs.getString("role")
+                );
+                userList.add(user);
             }
-        } finally {
-            DBConnection.closeResultSet(rs);
-            DBConnection.closeStatement(stmt);
-            DBConnection.closeConnection(conn);
         }
         return userList;
     }
+
     
     public boolean checkPassword(String email, String inputPassword) {
         String sql = "SELECT password FROM tbl_users WHERE email = ?";

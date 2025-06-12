@@ -157,4 +157,19 @@ public class VaccineDAO {
 		return vaccineList;
 	}
 
+	public String getVaccineName(int vaccineId) {
+	    try (Connection conn = DBConnection.getConnection();
+	         PreparedStatement stmt = conn.prepareStatement(
+	             "SELECT name FROM tbl_vaccines WHERE vaccine_id = ?")) {
+
+	        stmt.setInt(1, vaccineId);
+	        try (ResultSet rs = stmt.executeQuery()) {
+	            if (rs.next()) return rs.getString("name");
+	        }
+	    } catch (Exception e) {
+	        System.err.println("Lỗi lấy tên vaccine: " + e.getMessage());
+	    }
+	    return "Không xác định";
+	}
+
 }
